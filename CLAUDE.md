@@ -8,7 +8,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Project:** SI-Todo — Personal Kanban board for engineering leaders with due-date aging and delegation tracking
 **Target User:** Single engineering leader managing multiple teams, tracking tasks/delegations/deadlines on localhost
-**Status:** Phase 3 — Architecture Complete
+**Status:** Phase 3 — Epics Complete
+
+## Epic Summary
+
+5 epics, 24 stories, all 40 FRs covered. Epics file: `{output_folder}/planning-artifacts/epics.md`
+
+- **Epic 1: Working Board with Persistent Cards** (11 stories) — fallback MVP: scaffold, SQLite+WAL, shared Zod, card repository, Fastify routes, Zustand store + mutation queue, board UI, card editor, drag-drop, aging colors
+- **Epic 2: Delegation & Card Detail** (6 stories) — tags, notes, accent color, archive, configurable thresholds
+- **Epic 3: Filtering, Search & Dashboard** (3 stories) — filter bar, text search, summary dashboard
+- **Epic 4: Data Portability** (2 stories) — JSON export, JSON import with confirmation
+- **Epic 5: Theming & Visual Polish** (2 stories) — light/dark mode, dotted grid background
 
 ## Tech Stack
 
