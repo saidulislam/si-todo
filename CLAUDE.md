@@ -8,7 +8,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Project:** SI-Todo — Personal Kanban board for engineering leaders with due-date aging and delegation tracking
 **Target User:** Single engineering leader managing multiple teams, tracking tasks/delegations/deadlines on localhost
-**Status:** Phase 2 — PRD Complete
+**Status:** Phase 3 — Architecture Complete
+
+## Tech Stack
+
+- **Language:** TypeScript end-to-end (strict mode, ESM)
+- **Frontend:** React + Vite, Zustand (state), @dnd-kit (drag-and-drop), Tailwind CSS v4
+- **Backend:** Node.js + Fastify, bound to `127.0.0.1` only
+- **Database:** SQLite via `better-sqlite3` (WAL mode, synchronous=NORMAL)
+- **Validation:** Zod (shared schemas in `src/shared/schemas.ts`)
+- **Testing:** Vitest (co-located `*.test.ts`)
+- **Dev runner:** `concurrently` runs Vite + `tsx watch` Fastify under one `npm run dev`
+- **Single npm package**, no monorepo, no ORM, no auth, no routing, no Docker, no CI
+
+## Architecture Decisions
+
+- **REST + single-snapshot loading** (`GET /api/state` returns full board)
+- **Repository pattern** — all SQL in `src/server/repositories/`, never in routes
+- **camelCase boundary** — `snake_case` ↔ `camelCase` translation only at the repository layer
+- **Optimistic UI + mutation queue** with reconcile-on-failure (refetch `/api/state`)
+- **Fractional positions (REAL)** for card ordering — no sibling renumbering on drag
+- **Hardcoded 6-column enum** in `src/shared/types.ts` (no `columns` table)
+- **Aging recalculation** via 60s `setInterval` + `window` focus event, memoized selectors
+- **Dual-signal styling** — aging color = card background, custom accent = card border (FR19)
+- **Architecture document:** `{output_folder}/planning-artifacts/architecture.md`
 
 ## Requirements Summary
 
